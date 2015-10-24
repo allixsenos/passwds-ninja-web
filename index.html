@@ -120,13 +120,18 @@
               range.selectNode(this);  
               window.getSelection().addRange(range);  
                 
+              var successful = false;
               try {  
                 // Now that we've selected the anchor text, execute the copy command  
-                var successful = document.execCommand('copy');  
-                var msg = successful ? 'successful' : 'unsuccessful';  
+                successful = document.execCommand('copy');  
               } catch(err) {  
+                successful = false;
                 // whatever
-              }  
+              }
+
+              if (!successful) {
+                  prompt("Your browser does not support insta-copy. Sorry.", $(this).text());
+              }
 
               // Remove the selections - NOTE: Should use
               // removeRange(range) when it is supported  

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>PASSWDS.NINJA</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <link rel="stylesheet" href="http://getbootstrap.com/examples/cover/cover.css">
+
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <style>
+        #passwords li {
+            font-size: 4vmin;
+            display: block;
+
+            cursor: pointer;
+
+           -moz-user-select: -moz-none;
+           -khtml-user-select: none;
+           -webkit-user-select: none;
+
+           /*
+             Introduced in IE 10.
+             See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+           */
+           -ms-user-select: none;
+           user-select: none;
+           border-radius: 16pt;
+           width: 40vmin;
+           padding: 0 20px;
+           margin: 0 auto;
+        }
+        #passwords li:hover {
+            background-color: #99f;
+        }
+        #passwords li:active {
+            background-color: #9f9;
+            cursor: copy;
+        }
+        </style>
+
+    </head>
+    <body>
+        <div class="site-wrapper">
+          <div class="site-wrapper-inner">
+            <div class="cover-container">
+              <div class="masthead clearfix">
+                <div class="inner">
+                  <h3 class="masthead-brand">passwds.ninja</h3>
+                  <nav>
+                    <ul class="nav masthead-nav">
+                      <li class="active"><a href="/">Home</a></li>
+                      <li><a href="#">Source</a></li>
+                      <li><a href="#">Extension</a></li>
+                      <li><a href="#">Contact</a></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+
+              <div class="inner cover">
+                <ul id="passwords" class="list-unstyled">
+                </ul>
+              </div>
+
+              <div class="mastfoot">
+                <div class="inner">
+                  <p>By <a href="http://luka.io">Luka</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+        <script>
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-57622-11']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+            })();
+
+            var template = 'Cvccvc99';
+
+            function generatePasswords(template, number) {
+                var chars = {}
+                chars['l'] = 'abcdefghijklmnoprstuvwxyz';
+                chars['U'] = chars['l'].toUpperCase();
+                chars['v'] = 'aeiouy';
+                chars['V'] = chars['v'].toUpperCase();
+                chars['c'] = 'bcdfghjklmnprstvwxz';
+                chars['C'] = chars['c'].toUpperCase();
+                chars['9'] = '0123456789';
+                chars['#'] = '!@#$%^&*_-+=()[]{}';
+                chars['a'] = chars['l'] + chars['9'];
+                chars['A'] = chars['a'].toUpperCase();
+
+                var i, c, possible;
+
+                var passwords = [];
+                for (i = 0; i < number; i++) {
+                    password = '';
+                    for (c = 0; c < template.length; c++) {
+                        possible = chars[template.charAt(c)];
+                        password += possible.charAt(Math.floor(Math.random() * possible.length));
+                    }
+                    passwords.push(password);
+                }
+
+                return passwords;
+            }
+
+            passwords = generatePasswords(template, 10);
+
+            var passwordlist = $("ul#passwords");
+            $.each(passwords, function(i, password) {
+                passwordlist.append($("<li>").text(password));
+            });
+
+            $('#passwords').on('click', 'li', function() {
+              var range = document.createRange();  
+              range.selectNode(this);  
+              window.getSelection().addRange(range);  
+                
+              try {  
+                // Now that we've selected the anchor text, execute the copy command  
+                var successful = document.execCommand('copy');  
+                var msg = successful ? 'successful' : 'unsuccessful';  
+              } catch(err) {  
+                // whatever
+              }  
+
+              // Remove the selections - NOTE: Should use
+              // removeRange(range) when it is supported  
+              window.getSelection().removeAllRanges();  
+            });
+
+        </script>
+  </body>
+</html>

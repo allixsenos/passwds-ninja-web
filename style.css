@@ -1,0 +1,39 @@
+.inner-passwords {
+    width: 50vmin;
+    margin: 0 auto;
+}
+#passwords li {
+    font-size: 4vmin;
+    display: block;
+
+    cursor: pointer;
+
+    border-radius: 16pt;
+    /*padding: 0 20px;*/
+    margin: 0 auto;
+}
+#passwords li:hover {
+    background-color: #99f;
+}
+#passwords li:active {
+    background-color: #9f9;
+    cursor: copy;
+}
+small {
+    display: block;
+}
+.more {
+    text-align: right;
+    font-weight: bold;
+}
+.more .glyphicon {
+    font-size: 10px;
+}
+.more a {
+    text-decoration: none;
+}
+.more a:active,
+.more a:hover {
+    text-decoration: none;
+    color: #9f9;
+}

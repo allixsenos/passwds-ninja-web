@@ -45,6 +45,7 @@ function doPasswords() {
   $.each(passwords, function(i, password) {
       passwordlist.append($("<li>").text(password));
   });
+  mixpanel.track("Generated passwords");
 }
 
 doPasswords();
@@ -67,6 +68,8 @@ $('#passwords').on('click', 'li', function() {
       prompt("Your browser does not support insta-copy. Sorry.", $(this).text());
   }
 
+  mixpanel.track("Claimed password");
+
   // Remove the selections - NOTE: Should use
   // removeRange(range) when it is supported  
   window.getSelection().removeAllRanges();  
@@ -83,4 +86,5 @@ if (window.sidebar){
 $('.more').on('click', function() {
   $('#passwords li').remove();
   doPasswords();
+  return false;
 });

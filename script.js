@@ -1,17 +1,33 @@
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-57622-11']);
-_gaq.push(['_trackPageview']);
+/*
+    cvc ~= 11.08-bits of entropy per group: log(19*6*19)/log(2) ~= 11.08
+    99 ~= 6.64-bits of entropy: 2*log(10)/log(2)
+    Cvccvc99 ~= 11.08+11.08+6.64 = 28.80-bits of entropy
 
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
-})();
+    Best practice is 70-bits of entropy. Thus:
 
-var template = 'Cvccvc99';
+    Cvccvccvccvccvccvc99 reaches the requirement
+    (11.08+11.08+11.08+11.08+11.08+11.08+6.64) = 73.12-bits of entropy
+*/
+var template = 'Cvccvccvccvccvccvc99'; // 20 characters
+
+function unbiasedRandom(size) {
+    var min;
+    var rand = new Uint32Array(1);
+
+    const mycrypto = window.crypto || window.msCrypto;
+
+    size >>>= 0; // ensure `size' is a 32-bit integer
+
+    // force the range of [`min', 2**32) to be a multiple of `size'
+    min = (-size >>> 0) % size;
+
+    do { mycrypto.getRandomValues(rand); } while (rand[0] < min);
+
+    return rand[0] % size;
+}
 
 function generatePasswords(template, number) {
-    var chars = {}
+    var chars = {};
     chars['l'] = 'abcdefghijklmnoprstuvwxyz';
     chars['U'] = chars['l'].toUpperCase();
     chars['v'] = 'aeiouy';
@@ -30,7 +46,7 @@ function generatePasswords(template, number) {
         password = '';
         for (c = 0; c < template.length; c++) {
             possible = chars[template.charAt(c)];
-            password += possible.charAt(Math.floor(Math.random() * possible.length));
+            password += possible.charAt(unbiasedRandom(possible.length));
         }
         passwords.push(password);
     }
@@ -45,7 +61,6 @@ function doPasswords() {
   $.each(passwords, function(i, password) {
       passwordlist.append($("<li>").text(password));
   });
-  mixpanel.track("Generated passwords");
 }
 
 doPasswords();

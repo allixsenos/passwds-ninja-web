@@ -28,9 +28,11 @@ function generatePasswords(template, number) {
     var passwords = [];
     for (i = 0; i < number; i++) {
         password = '';
+        var array = new Uint8Array(template.length)
+        window.crypto.getRandomValues(array);
         for (c = 0; c < template.length; c++) {
             possible = chars[template.charAt(c)];
-            password += possible.charAt(Math.floor(Math.random() * possible.length));
+            password += possible.charAt(Math.floor(array[c] / 256 * possible.length));
         }
         passwords.push(password);
     }

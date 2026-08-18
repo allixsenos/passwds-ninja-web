@@ -1,3 +1,24 @@
+.shutdown-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 44px;
+    padding: 12px;
+    background-color: #f0ad4e;
+    color: #2b1d0e;
+    font-size: clamp(12px, 2vw, 16px);
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    text-shadow: none;
+    white-space: nowrap;
+}
+.site-wrapper {
+    box-sizing: border-box;
+    padding-top: 44px;
+}
 .inner-passwords {
     width: 50vmin;
     margin: 0 auto;
@@ -36,4 +57,10 @@ small {
 .more a:hover {
     text-decoration: none;
     color: #9f9;
+}
+
+@media (min-width: 768px) {
+    .masthead {
+        top: 44px;
+    }
 }

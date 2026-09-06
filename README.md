@@ -1,5 +1,5 @@
 # passwds.ninja
-## the pronounceable passwords generator
+## The Pronounceable Passwords Generator
 
 The passwds.ninja website, including the password generation javascript. All password generation happens in the browser.
 
